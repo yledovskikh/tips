@@ -13,3 +13,6 @@ openssl verify -verbose -CAfile <(cat SUBCAUSR02.pem group-S7-ROOT-CA.pem) vmwvc
 
 #Проверка корректности CSR
 openssl req -text -noout -verify -in /etc/ssl/certs/server.csr
+
+#Посмотреть информацию по сертификату
+openssl x509 -in group-S7-ROOT-CA.pem -noout -text
