@@ -1,0 +1,15 @@
+# Список CA загруженных trust store
+awk -v cmd='openssl x509 -noout -subject' ' /BEGIN/{close(cmd)};{print | cmd}' < /etc/ssl/certs/ca-certificates.crt
+
+#Конвертация DER в PEM
+openssl x509 -inform DER -in group-S7-ROOT-CA.crt -out group-S7-ROOT-CA.pem -text
+# не проверена
+#openssl pkcs7 -inform DER -print_certs -in SUBCAUSR02.crt -out SUBCAUSR02.pem
+
+
+#Валидация SSL с помощью CA
+openssl verify -verbose -CAfile group-SUBCA-CA.pem vmwvc16h01.pem
+openssl verify -verbose -CAfile <(cat SUBCAUSR02.pem group-S7-ROOT-CA.pem) vmwvc16h01.pem
+
+#Проверка корректности CSR
+openssl req -text -noout -verify -in /etc/ssl/certs/server.csr
