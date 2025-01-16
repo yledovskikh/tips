@@ -16,3 +16,6 @@ openssl req -text -noout -verify -in /etc/ssl/certs/server.csr
 
 #Посмотреть информацию по сертификату
 openssl x509 -in group-S7-ROOT-CA.pem -noout -text
+
+# Посмотреть сертификат на сервере
+openssl s_client -showcerts -servername vmwvc16h01.group.s7 -connect vmwvc16h01.group.s7:443 </dev/null
